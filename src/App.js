@@ -3,42 +3,90 @@ import randomColor from 'randomcolor';
 import { useState } from 'react';
 
 function App() {
+  const [userHue, setUserHue] = useState('');
+  const [userSaturation, setUserSaturation] = useState('');
   const [color, setColor] = useState(randomColor());
-  console.log(color);
 
   return (
-    <div className="colorApp">
+    <div
+      style={{
+        width: 1200,
+        height: 500,
+        margin: 'auto',
+      }}
+    >
       <div
         style={{
-          width: 800,
-          height: 400,
+          width: 1200,
+          height: 500,
           backgroundColor: color,
-          justifyContent: 'center',
-          alignItems: 'center',
+          borderRadius: '50px',
           display: 'flex',
+          justifyContent: 'center',
+          fontSize: 48,
+          alignItems: 'center',
           margin: '50px auto',
-          border: '1px solid',
-          borderRadius: '30px',
         }}
       >
-        <h1>Generated color: {color} </h1>
+        {color}
       </div>
-
-      <br />
-
       <div
         style={{
-          width: 72,
-          height: 25,
-          margin: '0 auto',
+          width: 1200,
+          height: 200,
+          display: 'flex',
+          margin: 'auto',
         }}
       >
-        <button
-          onClick={() => {
-            setColor(randomColor());
+        <div
+          style={{
+            width: 400,
+            display: 'flex',
+            justifyContent: 'space-between',
           }}
         >
-          Generate
+          <input
+            style={{
+              width: 180,
+              height: 40,
+              borderRadius: 10,
+              fontSize: 18,
+            }}
+            placeholder="Color"
+            value={userHue}
+            onChange={(event) => {
+              setUserHue(event.currentTarget.value);
+            }}
+          />
+
+          <input
+            style={{
+              width: 180,
+              height: 40,
+              borderRadius: 10,
+              fontSize: 18,
+            }}
+            placeholder="Saturation"
+            value={userSaturation}
+            onChange={(event) => {
+              setUserSaturation(event.currentTarget.value);
+            }}
+          />
+        </div>
+
+        <button
+          style={{
+            width: 180,
+            height: 40,
+            borderRadius: 10,
+            fontSize: 18,
+            marginLeft: 100,
+          }}
+          onClick={() => {
+            setColor(randomColor({ hue: userHue, luminosity: userSaturation }));
+          }}
+        >
+          Generate Color
         </button>
       </div>
     </div>
